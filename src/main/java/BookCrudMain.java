@@ -1,5 +1,11 @@
+import java.time.LocalDate;
+
+import org.postgresql.util.PSQLException;
+
+import exception.ApplicationException;
 import io.javalin.Javalin;
 import pojo.BookPojo;
+import pojo.ErrorPojo;
 import service.BookService;
 import service.BookServiceImpl;
 
@@ -56,8 +62,23 @@ public class BookCrudMain {
 			ctx.json(returnBookPojo);
 		});
 		
+		server.exception(ApplicationException.class, (ae, ctx) -> {
+			ErrorPojo error = new ErrorPojo();
+			error.setErrorMessage(ae.getMessage());
+			ctx.json(error);
+		});
 		
+		server.exception(PSQLException.class, (ae, ctx) -> {
+			ErrorPojo error = new ErrorPojo();
+			error.setErrorMessage(ae.getMessage());
+			ctx.json(error);
+		});
 		
+		server.exception(NullPointerException.class, (ae, ctx) -> {
+			ErrorPojo error = new ErrorPojo();
+			error.setErrorMessage(ae.getMessage());
+			ctx.json(error);
+		});
 	}
 
 }
