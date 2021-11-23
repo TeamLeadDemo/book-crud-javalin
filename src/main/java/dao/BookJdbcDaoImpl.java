@@ -27,9 +27,9 @@ public class BookJdbcDaoImpl implements BookDao {
 		//set the book_removed to false
 		bookPojo.setBookRemoved(false);
 		
-		// jdbc steps 3 and 4
-		Connection conn = DBUtil.makeConnection();
 		try {
+			// jdbc steps 3 and 4
+			Connection conn = DBUtil.makeConnection();
 			Statement stmt = conn.createStatement();
 //			String query = "insert into book_details(book_title, book_author, book_genre, book_cost, book_removed)" 
 //							+ "values('"+bookPojo.getBookTitle()+"','"+bookPojo.getBookAuthor()
@@ -63,9 +63,9 @@ public class BookJdbcDaoImpl implements BookDao {
 	public BookPojo updateBook(BookPojo bookPojo) throws ApplicationException {
 		logger.info("Entered updateBook() in dao.");
 		
-		// jdbc step 3 and 4
-		Connection conn = DBUtil.makeConnection();
 		try {
+			// jdbc step 3 and 4
+			Connection conn = DBUtil.makeConnection();
 			Statement stmt = conn.createStatement();
 			String query = "update book_details set book_cost="+bookPojo.getBookCost()
 							+" where book_id="+bookPojo.getId();
@@ -84,9 +84,10 @@ public class BookJdbcDaoImpl implements BookDao {
 		logger.info("Entered deleteBook() in dao.");
 		
 		boolean flag = true;
-		Connection conn = DBUtil.makeConnection();
+		
 		int rowsAffected = 0;
 		try {
+			Connection conn = DBUtil.makeConnection();
 			Statement stmt = conn.createStatement();
 			// here we are not going to do a hard delete, we are going 
 			// for a soft delete.
@@ -112,9 +113,9 @@ public class BookJdbcDaoImpl implements BookDao {
 		// as pojo Object
 		List<BookPojo> allBooksStore = new ArrayList<BookPojo>();
 
-		Connection conn = DBUtil.makeConnection();
 		Statement stmt;
 		try {
+			Connection conn = DBUtil.makeConnection();
 			stmt = conn.createStatement();
 			String query = "select * from book_details where book_removed=false";
 			ResultSet rs = stmt.executeQuery(query);
@@ -144,10 +145,10 @@ public class BookJdbcDaoImpl implements BookDao {
 	public BookPojo getABook(int bookId) throws ApplicationException {
 		logger.info("Entered getABook() in dao.");
 		
-		Connection conn = DBUtil.makeConnection();
 		Statement stmt;
 		BookPojo bookPojo = null;
 		try {
+			Connection conn = DBUtil.makeConnection();
 			stmt = conn.createStatement();
 			String query = "select * from book_details where book_id="+bookId
 							+ "and book_removed=false";

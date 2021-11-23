@@ -24,14 +24,10 @@ public class DBUtil {
 	
 	// this method is static so that we can call the method with 
 	// the class name
-	public static Connection makeConnection() {
+	public static Connection makeConnection()throws SQLException {
 		// implemented singleton pattern here
 		if (conn == null) {
-			try {
 				conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "root");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return conn;
 	}

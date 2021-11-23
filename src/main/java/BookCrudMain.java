@@ -65,20 +65,10 @@ public class BookCrudMain {
 		server.exception(ApplicationException.class, (ae, ctx) -> {
 			ErrorPojo error = new ErrorPojo();
 			error.setErrorMessage(ae.getMessage());
-			ctx.json(error);
+			ctx.json(error).status(500);
 		});
 		
-		server.exception(PSQLException.class, (ae, ctx) -> {
-			ErrorPojo error = new ErrorPojo();
-			error.setErrorMessage(ae.getMessage());
-			ctx.json(error);
-		});
 		
-		server.exception(NullPointerException.class, (ae, ctx) -> {
-			ErrorPojo error = new ErrorPojo();
-			error.setErrorMessage(ae.getMessage());
-			ctx.json(error);
-		});
 	}
 
 }
